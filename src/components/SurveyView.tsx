@@ -3,6 +3,7 @@ import { ShieldCheck, MapPin, ExternalLink, Sparkles, CheckCircle2, Clock, FileS
 import { AdminStore } from '../data/adminStore';
 
 interface SurveyViewProps {
+  onOpenDetailedSurvey?: () => void;
   onNavigateToResources?: () => void;
 }
 

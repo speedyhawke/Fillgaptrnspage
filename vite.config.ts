@@ -16,7 +16,10 @@ const spaFallbackPlugin = (): Plugin => ({
         // 1. Create dist/404.html for GitHub Pages fallback
         fs.writeFileSync(path.join(distDir, '404.html'), indexHtml, 'utf-8');
 
-        // 2. Create static directories with index.html for all known routes to ensure 100% 200 OK on refresh
+        // 2. Create dist/.nojekyll to disable Jekyll processing on GitHub Pages
+        fs.writeFileSync(path.join(distDir, '.nojekyll'), '', 'utf-8');
+
+        // 3. Create static directories with index.html for all known routes to ensure 100% 200 OK on refresh
         const routes = [
           'admin',
           'about',
@@ -49,6 +52,7 @@ const spaFallbackPlugin = (): Plugin => ({
 
 export default defineConfig(() => {
   return {
+    base: './',
     plugins: [react(), tailwindcss(), spaFallbackPlugin()],
     resolve: {
       alias: {
