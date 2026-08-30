@@ -270,14 +270,17 @@ export const CleanSurveyReport: React.FC<CleanSurveyReportProps> = ({
             />
 
             <a
-              href="https://docs.google.com/forms/d/1nu7-7fW5aum_LHRuas2yYvKtPBGqSQSh6cxKxQJbIEE/edit"
+              href={surveyType === 'community' 
+                ? (AdminStore.getGoogleConfig().communityFormUrl || 'https://docs.google.com/forms/d/e/1FAIpQLSdUbd7uHKfjodSI6qiixViDSO03lpE9fLEEzvqxs5uw9jWgtg/viewform?usp=header')
+                : (AdminStore.getGoogleConfig().professionalFormUrl || 'https://docs.google.com/forms/d/e/1FAIpQLSe-dE9Qn93on48qiv7y2qHzDI7wdUqZjNtIJ8NvGaZ04ijmbg/viewform?usp=header')
+              }
               target="_blank"
               rel="noopener noreferrer"
               className="px-3.5 py-2.5 rounded-xl bg-purple-600/20 hover:bg-purple-600/30 text-purple-200 border border-purple-500/40 text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-colors cursor-pointer"
-              title="Open Google Form Editor in new tab"
+              title={`Open Official ${surveyType === 'community' ? 'Community' : 'Professional'} Google Form in new tab`}
             >
               <ExternalLink className="w-3.5 h-3.5 text-purple-300" />
-              <span>Edit Google Form</span>
+              <span>Open {surveyType === 'community' ? 'Community' : 'Professional'} Form</span>
             </a>
 
             <button

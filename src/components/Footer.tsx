@@ -141,17 +141,8 @@ export const Footer: React.FC<FooterProps> = ({
             <span>© {new Date().getFullYear()} Fill the Gap • St. John's, NL. All rights reserved.</span>
           </div>
 
-          {/* Links for Privacy, Terms, Accessibility, Standalone HTML, Export Code, and Admin */}
+          {/* Links for Privacy, Terms, Accessibility, Export Code, and Admin */}
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 font-semibold text-slate-400">
-            <a
-              href="/fillthegap.html"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#F3BA4F] hover:underline flex items-center gap-1 font-bold"
-            >
-              <span>Standalone HTML</span>
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#1e293b] border border-[#E5A93C]/40">.html</span>
-            </a>
             <button
               onClick={() => onOpenLegalModal && onOpenLegalModal('privacy')}
               className="hover:text-white transition-colors cursor-pointer text-slate-300"

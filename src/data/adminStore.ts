@@ -252,12 +252,12 @@ export interface GoogleIntegrationConfig {
 }
 
 const DEFAULT_GOOGLE_CONFIG: GoogleIntegrationConfig = {
-  communityFormUrl: 'https://docs.google.com/forms/d/e/1FAIpQLScJp8v_community_fillthegap/viewform',
+  communityFormUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSdUbd7uHKfjodSI6qiixViDSO03lpE9fLEEzvqxs5uw9jWgtg/viewform?usp=header',
   communitySheetCsvUrl: '',
-  communitySheetViewUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT-community-ledger-fillthegap/pubhtml',
-  professionalFormUrl: 'https://docs.google.com/forms/d/e/1FAIpQLScJp8v_professional_fillthegap/viewform',
+  communitySheetViewUrl: '',
+  professionalFormUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSe-dE9Qn93on48qiv7y2qHzDI7wdUqZjNtIJ8NvGaZ04ijmbg/viewform?usp=header',
   professionalSheetCsvUrl: '',
-  professionalSheetViewUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT-professional-ledger-fillthegap/pubhtml',
+  professionalSheetViewUrl: '',
   isAutoSyncEnabled: true,
   syncIntervalSeconds: 60,
   communityCountFromSheet: 0,
@@ -1530,7 +1530,15 @@ export class AdminStore {
     try {
       const raw = localStorage.getItem(STORAGE_KEYS.GOOGLE_CONFIG);
       if (raw) {
-        return { ...DEFAULT_GOOGLE_CONFIG, ...JSON.parse(raw) };
+        const parsed = JSON.parse(raw);
+        // Overwrite any stale mock/dummy form URLs
+        if (!parsed.professionalFormUrl || parsed.professionalFormUrl.includes('professional_fillthegap')) {
+          parsed.professionalFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSe-dE9Qn93on48qiv7y2qHzDI7wdUqZjNtIJ8NvGaZ04ijmbg/viewform?usp=header';
+        }
+        if (!parsed.communityFormUrl || parsed.communityFormUrl.includes('community_fillthegap')) {
+          parsed.communityFormUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSdUbd7uHKfjodSI6qiixViDSO03lpE9fLEEzvqxs5uw9jWgtg/viewform?usp=header';
+        }
+        return { ...DEFAULT_GOOGLE_CONFIG, ...parsed };
       }
     } catch {}
     return { ...DEFAULT_GOOGLE_CONFIG };

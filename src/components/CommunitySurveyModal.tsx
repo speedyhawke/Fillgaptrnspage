@@ -43,8 +43,8 @@ export const CommunitySurveyModal: React.FC<CommunitySurveyModalProps> = ({
 
   if (!isOpen) return null;
 
-  // Use configured form URL or fallback to standard fill-the-gap form
-  const formUrl = googleConfig.communityFormUrl || 'https://docs.google.com/forms/d/e/1FAIpQLScJp8v_community_fillthegap/viewform';
+  // Use configured form URL or fallback to the official community survey form
+  const formUrl = googleConfig.communityFormUrl || 'https://docs.google.com/forms/d/e/1FAIpQLSdUbd7uHKfjodSI6qiixViDSO03lpE9fLEEzvqxs5uw9jWgtg/viewform?usp=header';
   const embedUrl = formUrl.includes('embedded=true') ? formUrl : `${formUrl}${formUrl.includes('?') ? '&' : '?'}embedded=true`;
 
   const handleOpenExternal = () => {

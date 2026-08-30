@@ -41,8 +41,8 @@ export const ProfessionalSurveyModal: React.FC<ProfessionalSurveyModalProps> = (
 
   if (!isOpen) return null;
 
-  // Use configured form URL or fallback to standard fill-the-gap professional form
-  const formUrl = googleConfig.professionalFormUrl || 'https://docs.google.com/forms/d/e/1FAIpQLScJp8v_professional_fillthegap/viewform';
+  // Use configured form URL or fallback to the official professional survey form
+  const formUrl = googleConfig.professionalFormUrl || 'https://docs.google.com/forms/d/e/1FAIpQLSe-dE9Qn93on48qiv7y2qHzDI7wdUqZjNtIJ8NvGaZ04ijmbg/viewform?usp=header';
   const embedUrl = formUrl.includes('embedded=true') ? formUrl : `${formUrl}${formUrl.includes('?') ? '&' : '?'}embedded=true`;
 
   const handleOpenExternal = () => {

@@ -76,8 +76,7 @@ Welcome to the complete source code repository for **Fill The Gap (FTG)** Newfou
       'FTG picture.png',
       'vercel.json',
       '_redirects',
-      '404.html',
-      'fillthegap.html'
+      '404.html'
     ];
 
     for (let i = 0; i < assetUrls.length; i++) {
