@@ -29,6 +29,7 @@ export const PuffinMascot: React.FC<PuffinMascotProps> = ({
       <img
         src={customImg}
         alt={alt}
+        referrerPolicy="no-referrer"
         className={`object-contain select-none ${className}`}
         onError={() => setImgFailed(true)}
       />

@@ -9,6 +9,7 @@ import { WhyIStartedView } from './components/WhyIStartedView';
 import { GetInvolvedView } from './components/GetInvolvedView';
 import { DonateView } from './components/DonateView';
 import { ContactView } from './components/ContactView';
+import { NeedHelpView } from './components/NeedHelpView';
 import { SurveyView } from './components/SurveyView';
 import { CommunitySurveyModal } from './components/CommunitySurveyModal';
 import { ProfessionalSurveyModal } from './components/ProfessionalSurveyModal';
@@ -182,7 +183,7 @@ export default function App() {
 
   // Check if activeTab is a custom CMS page or built-in tab
   const customPage = CMSStore.getPageBySlug(activeTab);
-  const isKnownTab = ['home', 'about', 'what-we-do', 'what-we-help-with', 'professionals', 'why-i-started', 'get-involved', 'donate', 'contact'].includes(activeTab);
+  const isKnownTab = ['home', 'about', 'what-we-do', 'what-we-help-with', 'need-help', 'professionals', 'why-i-started', 'get-involved', 'donate', 'contact'].includes(activeTab);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-stone-900 selection:bg-amber-300 selection:text-slate-950">
@@ -258,6 +259,7 @@ export default function App() {
             onNavigateToAbout={() => handleTabChange('about')}
             onNavigateToWhyIStarted={() => handleTabChange('why-i-started')}
             onNavigateToContact={() => handleTabChange('contact')}
+            onNavigateToNeedHelp={() => handleTabChange('need-help')}
           />
         )}
 
@@ -282,6 +284,15 @@ export default function App() {
             onNavigateToContact={() => handleTabChange('contact')}
             onNavigateToDonate={() => handleTabChange('donate')}
             onNavigateToGetInvolved={() => handleTabChange('get-involved')}
+          />
+        )}
+
+        {activeTab === 'need-help' && (
+          <NeedHelpView
+            onNavigateToContact={() => handleTabChange('contact')}
+            onNavigateToWhatWeHelpWith={() => handleTabChange('what-we-help-with')}
+            onNavigateToGetInvolved={() => handleTabChange('get-involved')}
+            onOpenSurvey={() => setIsSurveyOpen(true)}
           />
         )}
 

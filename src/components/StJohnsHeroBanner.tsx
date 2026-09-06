@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   MapPin,
-  ClipboardList,
-  Briefcase,
+  HelpCircle,
   Heart,
   Shield,
   Search,
@@ -14,6 +13,9 @@ import {
   Upload,
   RotateCcw,
   ChevronDown,
+  ArrowRight,
+  ClipboardList,
+  Briefcase,
 } from 'lucide-react';
 import {
   DEFAULT_BATTERY_HERO_IMAGE,
@@ -26,12 +28,14 @@ interface StJohnsHeroHeaderProps {
   onOpenSurvey: () => void;
   onOpenProfessionalSurvey: () => void;
   onNavigateToDonate: () => void;
+  onNavigateToNeedHelp?: () => void;
 }
 
 export const StJohnsHeroHeader: React.FC<StJohnsHeroHeaderProps> = ({
   onOpenSurvey,
   onOpenProfessionalSurvey,
   onNavigateToDonate,
+  onNavigateToNeedHelp,
 }) => {
   const [heroImage, setHeroImage] = useState<string>(() => {
     const custom = AdminStore.getCustomHeroImage();
@@ -210,35 +214,44 @@ export const StJohnsHeroHeader: React.FC<StJohnsHeroHeaderProps> = ({
           </p>
         </div>
 
-        {/* 3 Primary Action Buttons */}
-        <div className="pt-2 max-w-3xl mx-auto space-y-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+        {/* Primary Action Buttons */}
+        <div className="pt-2 max-w-4xl mx-auto space-y-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
             
-            {/* 1. Surveys for the Community (Primary Gold) */}
+            {/* 1. Need Help (Primary Gold) */}
             <button
-              onClick={onOpenSurvey}
-              className="gold-gradient-btn px-6 py-4 rounded-2xl text-slate-950 font-black text-xs sm:text-sm tracking-wider uppercase flex items-center justify-center gap-2 border border-amber-200 cursor-pointer shadow-md hover:-translate-y-0.5 transition-all"
+              onClick={onNavigateToNeedHelp}
+              className="gold-gradient-btn px-5 py-4 rounded-2xl text-slate-950 font-black text-xs sm:text-sm tracking-wider uppercase flex items-center justify-center gap-2 border border-amber-200 cursor-pointer shadow-lg hover:-translate-y-0.5 transition-all"
             >
-              <ClipboardList className="w-4 h-4 text-slate-950 shrink-0" />
-              <span>SURVEYS FOR THE COMMUNITY</span>
+              <HelpCircle className="w-4 h-4 text-slate-950 shrink-0" />
+              <span>NEED HELP?</span>
             </button>
 
-            {/* 2. Professional Surveys (Dark Slate) */}
-            <button
-              onClick={onOpenProfessionalSurvey}
-              className="px-6 py-4 rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-white font-black text-xs sm:text-sm tracking-wider uppercase transition-all shadow-md hover:-translate-y-0.5 flex items-center justify-center gap-2 border border-slate-700 hover:border-[#F3BA4F] cursor-pointer backdrop-blur-md"
-            >
-              <Briefcase className="w-4 h-4 text-[#F3BA4F] shrink-0" />
-              <span>PROFESSIONAL SURVEYS</span>
-            </button>
-
-            {/* 3. Donate (White with Gold Accent) */}
+            {/* 2. Donate (White with Gold Accent) */}
             <button
               onClick={onNavigateToDonate}
-              className="px-6 py-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-950 font-black text-xs sm:text-sm tracking-wider uppercase transition-all shadow-md hover:-translate-y-0.5 flex items-center justify-center gap-2 border border-white hover:border-[#E5A93C] cursor-pointer"
+              className="px-5 py-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-950 font-black text-xs sm:text-sm tracking-wider uppercase transition-all shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 border border-white hover:border-[#E5A93C] cursor-pointer"
             >
               <Heart className="w-4 h-4 fill-current text-[#E5A93C] shrink-0" />
               <span>DONATE</span>
+            </button>
+
+            {/* 3. Community Surveys (White) */}
+            <button
+              onClick={onOpenSurvey}
+              className="px-5 py-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-950 font-black text-xs sm:text-sm tracking-wider uppercase transition-all shadow-lg hover:-translate-y-0.5 flex items-center justify-center gap-2 border border-white hover:border-[#E5A93C] cursor-pointer"
+            >
+              <ClipboardList className="w-4 h-4 text-slate-950 shrink-0" />
+              <span>COMMUNITY SURVEY</span>
+            </button>
+
+            {/* 4. Professional Surveys (Gold) */}
+            <button
+              onClick={onOpenProfessionalSurvey}
+              className="gold-gradient-btn px-5 py-4 rounded-2xl text-slate-950 font-black text-xs sm:text-sm tracking-wider uppercase flex items-center justify-center gap-2 border border-amber-200 cursor-pointer shadow-lg hover:-translate-y-0.5 transition-all"
+            >
+              <Briefcase className="w-4 h-4 text-slate-950 shrink-0" />
+              <span>PROFESSIONAL SURVEY</span>
             </button>
           </div>
 

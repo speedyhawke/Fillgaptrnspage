@@ -34,6 +34,7 @@ interface HomeViewProps {
   onNavigateToAbout: () => void;
   onNavigateToWhyIStarted?: () => void;
   onNavigateToContact?: () => void;
+  onNavigateToNeedHelp?: () => void;
 }
 
 export const HomeView: React.FC<HomeViewProps> = ({
@@ -44,6 +45,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
   onNavigateToWhatWeDo,
   onNavigateToWhatWeHelpWith,
   onNavigateToWhyIStarted,
+  onNavigateToNeedHelp,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -71,6 +73,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
           onOpenSurvey={onOpenSurvey}
           onOpenProfessionalSurvey={onOpenProfessionalSurvey}
           onNavigateToDonate={onNavigateToDonate}
+          onNavigateToNeedHelp={onNavigateToNeedHelp}
         />
       </section>
 
@@ -132,13 +135,15 @@ export const HomeView: React.FC<HomeViewProps> = ({
               </div>
 
               <div className="pt-2 flex flex-wrap items-center gap-3">
-                <button
-                  onClick={onOpenSurvey}
-                  className="gold-gradient-btn px-6 py-3.5 rounded-2xl text-[#0f172a] font-black text-xs uppercase tracking-wider transition-all shadow-sm border border-amber-200 flex items-center gap-2 cursor-pointer"
-                >
-                  <span>Surveys for the Community</span>
-                  <ArrowRight className="w-4 h-4 text-[#0f172a]" />
-                </button>
+                {onNavigateToNeedHelp && (
+                  <button
+                    onClick={onNavigateToNeedHelp}
+                    className="gold-gradient-btn px-6 py-3.5 rounded-2xl text-[#0f172a] font-black text-xs uppercase tracking-wider transition-all shadow-sm border border-amber-200 flex items-center gap-2 cursor-pointer"
+                  >
+                    <HelpCircle className="w-4 h-4 text-[#0f172a]" />
+                    <span>Need Help?</span>
+                  </button>
+                )}
                 {onNavigateToWhatWeDo && (
                   <button
                     onClick={onNavigateToWhatWeDo}
@@ -642,21 +647,15 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
           {/* Action Buttons */}
           <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
-            <button
-              onClick={onOpenSurvey}
-              className="gold-gradient-btn px-6 py-3.5 rounded-2xl text-[#0f172a] font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 border border-amber-200 cursor-pointer"
-            >
-              <ClipboardList className="w-4 h-4 text-[#0f172a]" />
-              <span>SURVEYS FOR THE COMMUNITY</span>
-            </button>
-
-            <button
-              onClick={onOpenProfessionalSurvey}
-              className="px-6 py-3.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-[#F3BA4F] font-black text-xs uppercase tracking-wider transition-all shadow-sm border border-[#E5A93C]/60 flex items-center justify-center gap-1.5 cursor-pointer"
-            >
-              <Briefcase className="w-4 h-4 text-[#F3BA4F]" />
-              <span>PROFESSIONAL SURVEYS</span>
-            </button>
+            {onNavigateToNeedHelp && (
+              <button
+                onClick={onNavigateToNeedHelp}
+                className="gold-gradient-btn px-6 py-3.5 rounded-2xl text-[#0f172a] font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 border border-amber-200 cursor-pointer shadow-sm"
+              >
+                <HelpCircle className="w-4 h-4 text-[#0f172a]" />
+                <span>NEED HELP?</span>
+              </button>
+            )}
 
             <button
               onClick={onNavigateToGetInvolved}

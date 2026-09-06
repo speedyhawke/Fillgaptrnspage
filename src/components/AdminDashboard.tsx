@@ -48,7 +48,9 @@ import {
   FileSpreadsheet,
   HelpCircle,
   FolderDown,
-  Archive
+  Archive,
+  Building,
+  Save
 } from 'lucide-react';
 import {
   AdminStore,
@@ -122,6 +124,16 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onExit, onNaviga
   const [editProfFormUrl, setEditProfFormUrl] = useState<string>(() => AdminStore.getGoogleConfig().professionalFormUrl);
   const [editProfSheetCsvUrl, setEditProfSheetCsvUrl] = useState<string>(() => AdminStore.getGoogleConfig().professionalSheetCsvUrl);
   const [editProfSheetViewUrl, setEditProfSheetViewUrl] = useState<string>(() => AdminStore.getGoogleConfig().professionalSheetViewUrl || '');
+
+  // Direct Bank & Payment Settings State
+  const [editBankName, setEditBankName] = useState<string>(() => AdminStore.getGoogleConfig().bankName || '');
+  const [editAccountHolder, setEditAccountHolder] = useState<string>(() => AdminStore.getGoogleConfig().accountHolderName || 'Fill the Gap NL');
+  const [editInstitutionNumber, setEditInstitutionNumber] = useState<string>(() => AdminStore.getGoogleConfig().institutionNumber || '');
+  const [editTransitNumber, setEditTransitNumber] = useState<string>(() => AdminStore.getGoogleConfig().transitNumber || '');
+  const [editAccountNumber, setEditAccountNumber] = useState<string>(() => AdminStore.getGoogleConfig().accountNumber || '');
+  const [editSwiftBic, setEditSwiftBic] = useState<string>(() => AdminStore.getGoogleConfig().swiftBic || '');
+  const [editBankAddress, setEditBankAddress] = useState<string>(() => AdminStore.getGoogleConfig().bankAddress || 'St. John\'s, NL, Canada');
+  const [editEtransferEmail, setEditEtransferEmail] = useState<string>(() => AdminStore.getGoogleConfig().eTransferEmail || 'info@fillthegapnl.ca');
 
   // Survey Inspector Modal State
   const [isInspectorOpen, setIsInspectorOpen] = useState<boolean>(false);
@@ -230,9 +242,17 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onExit, onNaviga
       professionalFormUrl: editProfFormUrl.trim(),
       professionalSheetCsvUrl: editProfSheetCsvUrl.trim(),
       professionalSheetViewUrl: editProfSheetViewUrl.trim(),
+      bankName: editBankName.trim(),
+      accountHolderName: editAccountHolder.trim(),
+      institutionNumber: editInstitutionNumber.trim(),
+      transitNumber: editTransitNumber.trim(),
+      accountNumber: editAccountNumber.trim(),
+      swiftBic: editSwiftBic.trim(),
+      bankAddress: editBankAddress.trim(),
+      eTransferEmail: editEtransferEmail.trim(),
     });
     setGoogleConfig(updated);
-    setGoogleSyncMsg('Google Form & Sheet URLs saved successfully!');
+    setGoogleSyncMsg('Integration & Bank Details saved successfully!');
     setTimeout(() => setGoogleSyncMsg(''), 4000);
   };
 
@@ -1299,6 +1319,137 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onExit, onNaviga
                     <p className="text-[11px] text-stone-500">
                       Google Sheet → File → Share → Publish to web → choose "CSV".
                     </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Direct Bank Account & Wire Transfer Settings */}
+              <div className="p-6 sm:p-8 rounded-3xl bg-slate-900 border border-slate-800 space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <Building className="w-5 h-5 text-emerald-400" />
+                      <h3 className="text-sm font-black text-white uppercase tracking-wider">
+                        Direct Bank Account & Payment Settings
+                      </h3>
+                    </div>
+                    <p className="text-xs text-stone-400">
+                      Configure your direct bank account details, e-Transfer email, and transit/institution numbers for receiving community donations.
+                    </p>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg flex items-center justify-center gap-2 cursor-pointer transition-all shrink-0"
+                  >
+                    <Save className="w-4 h-4 text-slate-950" />
+                    <span>Save Bank Details</span>
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-bold text-stone-200">
+                      Account Holder / Organization Name
+                    </label>
+                    <input
+                      type="text"
+                      value={editAccountHolder}
+                      onChange={(e) => setEditAccountHolder(e.target.value)}
+                      placeholder="Fill the Gap NL"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-400"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-bold text-stone-200">
+                      Financial Institution / Bank Name
+                    </label>
+                    <input
+                      type="text"
+                      value={editBankName}
+                      onChange={(e) => setEditBankName(e.target.value)}
+                      placeholder="e.g., Royal Bank of Canada (RBC) / TD / Scotiabank"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-400"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-bold text-stone-200">
+                      Interac e-Transfer Recipient Email
+                    </label>
+                    <input
+                      type="email"
+                      value={editEtransferEmail}
+                      onChange={(e) => setEditEtransferEmail(e.target.value)}
+                      placeholder="info@fillthegapnl.ca"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-400"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-bold text-stone-200">
+                      Institution Number (3 Digits)
+                    </label>
+                    <input
+                      type="text"
+                      value={editInstitutionNumber}
+                      onChange={(e) => setEditInstitutionNumber(e.target.value)}
+                      placeholder="e.g., 003"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono focus:outline-none focus:border-emerald-400"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-bold text-stone-200">
+                      Transit / Branch Number (5 Digits)
+                    </label>
+                    <input
+                      type="text"
+                      value={editTransitNumber}
+                      onChange={(e) => setEditTransitNumber(e.target.value)}
+                      placeholder="e.g., 01234"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono focus:outline-none focus:border-emerald-400"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-bold text-stone-200">
+                      Account Number (7–12 Digits)
+                    </label>
+                    <input
+                      type="text"
+                      value={editAccountNumber}
+                      onChange={(e) => setEditAccountNumber(e.target.value)}
+                      placeholder="e.g., 1234567"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono focus:outline-none focus:border-emerald-400"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-bold text-stone-200">
+                      SWIFT / BIC Code (For Wire Transfers)
+                    </label>
+                    <input
+                      type="text"
+                      value={editSwiftBic}
+                      onChange={(e) => setEditSwiftBic(e.target.value)}
+                      placeholder="e.g., ROYCCAT2"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white font-mono focus:outline-none focus:border-emerald-400"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5 sm:col-span-2">
+                    <label className="block text-xs font-bold text-stone-200">
+                      Branch / Organization Address
+                    </label>
+                    <input
+                      type="text"
+                      value={editBankAddress}
+                      onChange={(e) => setEditBankAddress(e.target.value)}
+                      placeholder="St. John's, Newfoundland & Labrador, Canada"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white focus:outline-none focus:border-emerald-400"
+                    />
                   </div>
                 </div>
               </div>

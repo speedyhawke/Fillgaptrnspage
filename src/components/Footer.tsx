@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavTabId } from './Navbar';
 import { Logo } from './Logo';
-import { Mail, MapPin, Briefcase, ClipboardList, Shield } from 'lucide-react';
+import { Mail, MapPin, Briefcase, ClipboardList } from 'lucide-react';
 import { LegalModalType } from './LegalModal';
 import { CMSStore, CMSPage } from '../data/cmsStore';
 
@@ -33,7 +33,7 @@ export const Footer: React.FC<FooterProps> = ({
     { id: 'about', label: 'About' },
     { id: 'what-we-do', label: 'What We Do' },
     { id: 'what-we-help-with', label: 'What We Help With' },
-    { id: 'professionals', label: 'Professionals' },
+    { id: 'need-help', label: 'Need Help' },
     { id: 'why-i-started', label: 'Why We Started' },
     { id: 'get-involved', label: 'Get Involved' },
     { id: 'donate', label: 'Donate' },
@@ -141,7 +141,7 @@ export const Footer: React.FC<FooterProps> = ({
             <span>© {new Date().getFullYear()} Fill the Gap • St. John's, NL. All rights reserved.</span>
           </div>
 
-          {/* Links for Privacy, Terms, Accessibility, Export Code, and Admin */}
+          {/* Links for Privacy, Terms, Accessibility, and Export Code */}
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 font-semibold text-slate-400">
             <button
               onClick={() => onOpenLegalModal && onOpenLegalModal('privacy')}
@@ -161,18 +161,6 @@ export const Footer: React.FC<FooterProps> = ({
             >
               Accessibility
             </button>
-
-            {/* Admin Login Button at the Very Bottom */}
-            {onOpenAdmin && (
-              <button
-                onClick={onOpenAdmin}
-                className="px-2.5 py-1 rounded-md bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-amber-300 transition-all flex items-center gap-1.5 cursor-pointer text-xs font-medium ml-1"
-                title="Admin Login (/admin)"
-              >
-                <Shield className="w-3.5 h-3.5 text-amber-400" />
-                <span>Admin Login</span>
-              </button>
-            )}
           </div>
 
         </div>

@@ -224,6 +224,7 @@ export interface ContactMessageRecord {
   submittedAt: string;
   name: string;
   email: string;
+  phone?: string;
   reason: string;
   message: string;
   status: 'Unread' | 'Read' | 'Replied' | 'Archived';
@@ -249,6 +250,18 @@ export interface GoogleIntegrationConfig {
   lastSyncError?: string;
   communityCountFromSheet: number;
   professionalCountFromSheet: number;
+  paypalEmail?: string;
+  paypalMeHandle?: string;
+  eTransferEmail?: string;
+  donationInstructions?: string;
+  // Direct Bank Account & Wire Transfer Details
+  bankName?: string;
+  accountHolderName?: string;
+  institutionNumber?: string;
+  transitNumber?: string;
+  accountNumber?: string;
+  swiftBic?: string;
+  bankAddress?: string;
 }
 
 const DEFAULT_GOOGLE_CONFIG: GoogleIntegrationConfig = {
@@ -263,6 +276,17 @@ const DEFAULT_GOOGLE_CONFIG: GoogleIntegrationConfig = {
   communityCountFromSheet: 0,
   professionalCountFromSheet: 0,
   lastSyncStatus: 'idle',
+  paypalEmail: '',
+  paypalMeHandle: '',
+  eTransferEmail: 'info@fillthegapnl.ca',
+  donationInstructions: 'Fill the Gap is a grassroots community initiative serving St. John\'s & Newfoundland.',
+  bankName: '',
+  accountHolderName: 'Fill the Gap NL',
+  institutionNumber: '',
+  transitNumber: '',
+  accountNumber: '',
+  swiftBic: '',
+  bankAddress: 'St. John\'s, NL, Canada',
 };
 
 const STORAGE_KEYS = {

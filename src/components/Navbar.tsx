@@ -8,7 +8,7 @@ export type NavTabId =
   | 'about'
   | 'what-we-do'
   | 'what-we-help-with'
-  | 'professionals'
+  | 'need-help'
   | 'why-i-started'
   | 'get-involved'
   | 'donate'
@@ -34,13 +34,12 @@ export const Navbar: React.FC<NavbarProps> = ({
     setCustomNavPages(CMSStore.getNavPages());
   }, [activeTab]);
 
-  const defaultNavTabs: { id: NavTabId | 'community-survey'; label: string; isSurvey?: boolean }[] = [
+  const defaultNavTabs: { id: NavTabId; label: string }[] = [
     { id: 'home', label: 'HOME' },
     { id: 'about', label: 'ABOUT' },
     { id: 'what-we-do', label: 'WHAT WE DO' },
     { id: 'what-we-help-with', label: 'WHAT WE HELP WITH' },
-    { id: 'community-survey', label: 'COMMUNITY SURVEY', isSurvey: true },
-    { id: 'professionals', label: 'PROFESSIONALS' },
+    { id: 'need-help', label: 'NEED HELP?' },
     { id: 'why-i-started', label: 'WHY WE STARTED' },
     { id: 'get-involved', label: 'GET INVOLVED' },
     { id: 'contact', label: 'CONTACT' },
